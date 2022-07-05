@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from "../database/database.js";
 
-export const Character = sequelize.define('characters', {
+export const Movie = sequelize.define('movies', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -10,22 +10,22 @@ export const Character = sequelize.define('characters', {
     image: {
         type: DataTypes.STRING,
     },
-    name: {
+    title: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    age: {
+    createdDate: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    weight: {
+    calification: {
         type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    history: {
-        type: DataTypes.STRING,
+        validate: {
+            min: 1,
+            max: 5,
+        },
         allowNull: false
     },
 }, {
-    timestapms: false,
+    timestamps: false,
 });

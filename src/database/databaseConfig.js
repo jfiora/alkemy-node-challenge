@@ -1,6 +1,6 @@
-import { Character } from "../models/characters.js";
-import { Movie } from "../models/movies.js";
-import { Genre } from "../models/genres.js";
+import { Character } from "../models/charactersModel.js";
+import { Movie } from "../models/moviesModel.js";
+import { Genre } from "../models/genresModel.js";
 
 export async function databaseConfig(db) {
     try {
