@@ -1,7 +1,7 @@
 import app from './app.js';
 import * as dotenv from 'dotenv'
-import { sequelize } from './database/database.js';
-import { databaseConfig } from './database/databaseConfig.js';
+import { sequelize } from './config/database.js';
+import { databaseConfig } from './config/databaseConfig.js';
 
 async function main() {
     dotenv.config();

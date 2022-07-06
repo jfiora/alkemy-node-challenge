@@ -2,7 +2,9 @@ import { Movie } from "../models/moviesModel.js";
 
 export const getMovies = async (req, res) => {
     try {
-        const movies = await Movie.findAll();
+        const movies = await Movie.findAll({
+            attributes: ['image', 'title', 'createdDate']
+        });
         res.json(movies);
     } catch (error) {
         res.status(500).json({ message: error.message });

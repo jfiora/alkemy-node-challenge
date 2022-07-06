@@ -17,7 +17,7 @@ export async function databaseConfig(db) {
             foreignKey: 'genres' 
         });
 
-        db.sync();
+        db.sync({alter: true});
 
         console.log('db connected successfully');
     } catch (err) {

@@ -1,30 +1,28 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from "../config/database.js";
 
-export const Movie = sequelize.define('movies', {
+export const User = sequelize.define('users', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
     },
-    image: {
+    email: {
         type: DataTypes.STRING,
-    },
-    title: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    createdDate: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    calification: {
-        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: true,
         validate: {
-            min: 1,
-            max: 5,
-        },
-        allowNull: false
+            isEmail: true
+        }
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            len: {
+                args: [6,255]
+            }
+        }
     },
 }, {
     timestamps: true ,

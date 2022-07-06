@@ -1,8 +1,11 @@
 import { Character } from "../models/charactersModel.js";
+import { Movie } from "../models/moviesModel.js";
 
 export const getCharacters = async (req, res) => {
     try {
-        const characters = await Character.findAll();
+        const characters = await Character.findAll({
+            attributes: ['image', 'name'],
+        });
         res.json(characters);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -15,6 +18,13 @@ export const getCharacter = async (req, res) => {
         const character = await Character.findOne({
             where: {
                 id,
+            },
+            include: {
+                model: Movie,
+                as: 'movies',
+                through: {
+                    attributes: [],
+                },
             },
         });
         res.json(character);

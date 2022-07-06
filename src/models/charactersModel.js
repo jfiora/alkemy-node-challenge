@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from "../database/database.js";
+import { sequelize } from "../config/database.js";
 
 export const Character = sequelize.define('characters', {
     id: {
@@ -15,7 +15,7 @@ export const Character = sequelize.define('characters', {
         allowNull: false
     },
     age: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     weight: {
