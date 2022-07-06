@@ -13,11 +13,17 @@ export async function databaseConfig(db) {
             as: 'characters',
             through: 'CharactersMovies',
         });
-        Movie.belongsTo(Genre, { 
-            foreignKey: 'genres' 
-        });
+        Genre.hasMany(Movie);
+        Movie.belongsTo(Genre);
 
         db.sync({alter: true});
+
+        //create some genres
+        await Genre.bulkCreate([
+            { name: 'Action', image: 'Action.jpg' },
+            { name: 'Comedy', image: 'Comedy.jpg' },
+            { name: 'Fantasy', image: 'Fantasy.jpg' },
+        ])
 
         console.log('db connected successfully');
     } catch (err) {

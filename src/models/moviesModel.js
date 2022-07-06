@@ -26,6 +26,7 @@ export const Movie = sequelize.define('movies', {
         },
         allowNull: false
     },
+    genreId: DataTypes.INTEGER,
 }, {
     timestamps: true ,
 });
