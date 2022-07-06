@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt';
 export const signIn = async (req, res) => {
     try {
         const { email, password } = req.body;
-        if (!email | !password) { res.send(404).json({message: 'email or password is missing'}) };
+        if (!email | !password) { return res.send(404).json({message: 'email or password is missing'}) };
 
         const user = await User.findOne({
             where: {
@@ -14,9 +14,9 @@ export const signIn = async (req, res) => {
             }
         });
 
-        if (!user) { res.send(404).json({ message: `user ${email} not found` }) };
+        if (!user) { return res.send(404).json({ message: `user ${email} not found` }) };
 
-        if (!bcrypt.compareSync(password, user.password)) { res.send(401).json({ message: 'unauthorized' }) };
+        if (!bcrypt.compareSync(password, user.password)) { return res.send(401).json({ message: 'unauthorized' }) };
 
         let token = jwt.sign({ user: user }, authConfig.secret, {
             expiresIn: authConfig.expires,
@@ -34,7 +34,7 @@ export const signIn = async (req, res) => {
 export const signUp = async (req, res) => {
     try {
         const { email, password } = req.body;
-        if (!email | !password) { res.send(404).json({message: 'email or password is missing'}) };
+        if (!email | !password) { return res.send(404).json({message: 'email or password is missing'}) };
 
         let encryptedPassword = bcrypt.hashSync(password, authConfig.rounds);
 
