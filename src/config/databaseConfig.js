@@ -1,30 +1,21 @@
 import { Character } from "../models/charactersModel.js";
 import { Movie } from "../models/moviesModel.js";
 import { Genre } from "../models/genresModel.js";
+import { CharacterMovie } from "../models/charactersMoviesModel.js";
 
 export async function databaseConfig(db) {
     try {
         await db.authenticate();
         Character.belongsToMany(Movie, {
-            as: 'characters',
-            through: 'CharactersMovies',
+            through: CharacterMovie,
         });
         Movie.belongsToMany(Character, {
-            as: 'characters',
-            through: 'CharactersMovies',
+            through: CharacterMovie,
         });
         Genre.hasMany(Movie);
         Movie.belongsTo(Genre);
 
-        db.sync({alter: true});
-
-        //create some genres
-        await Genre.bulkCreate([
-            { name: 'Action', image: 'Action.jpg' },
-            { name: 'Comedy', image: 'Comedy.jpg' },
-            { name: 'Fantasy', image: 'Fantasy.jpg' },
-        ])
-
+        db.sync();
         console.log('db connected successfully');
     } catch (err) {
         console.error('database could not initializate: ', err);
