@@ -19,9 +19,7 @@ export const signIn = async (req, res) => {
 
         if (!bcrypt.compareSync(password, user.password)) { return res.send(401).json({ message: 'unauthorized' }) };
 
-        let token = jwt.sign({ user: user }, authConfig.secret, {
-            expiresIn: authConfig.expires,
-        });
+        let token = getToken(user);
 
         res.json({
             user: user,
@@ -44,9 +42,7 @@ export const signUp = async (req, res) => {
             password: encryptedPassword
         });
 
-        let token = jwt.sign({ user: newUser }, authConfig.secret, {
-            expiresIn: authConfig.expires,
-        });
+        let token = getToken(newUser);
 
         mailService(email, `Welcome ${email}!`, "Welcome to Disney API!")
 
@@ -58,3 +54,9 @@ export const signUp = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+
+const getToken = (user) => {
+    jwt.sign({ user: user }, authConfig.secret, {
+        expiresIn: authConfig.expires,
+    });
+};
