@@ -1,5 +1,6 @@
 import { User } from "../models/usersModel.js";
 import { authConfig } from "../config/authConfig.js";
+import { mailService } from "../services/sendEmail.js";
 import jwt from "jsonwebtoken";
 import bcrypt from 'bcrypt';
 
@@ -46,6 +47,8 @@ export const signUp = async (req, res) => {
         let token = jwt.sign({ user: newUser }, authConfig.secret, {
             expiresIn: authConfig.expires,
         });
+
+        mailService(email, `Welcome ${email}!`, "Welcome to Disney API!")
 
         res.json({
             user: newUser,
