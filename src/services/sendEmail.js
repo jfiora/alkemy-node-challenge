@@ -9,7 +9,7 @@ export const mailService = async (email, subject, text) => {
             subject: subject,
             text: text,
         };
-        await sgMail.send(message).then(() => console.log('mail sent'));
+        await sgMail.send(message);
     } catch (error) {
         throw new Error(error);
     }
